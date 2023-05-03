@@ -1,46 +1,97 @@
-# Getting Started with Create React App
+# React Modal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+간단한 모달을 구현할 수 있는 리액트 라이브러리입니다.
 
-## Available Scripts
+## 설치 방법
 
-In the project directory, you can run:
+```sh
+$ npm install @ashleysyheo/react-modal
+$ yarn add @ashleysyheo/react-modal
+```
 
-### `npm start`
+## API Documentation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`ModalProvider`: 모달 컨텍스트를 제공하는 컴포넌트
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+`Modal`: 모달 창을 보여주기 위한 모달 컴포넌트
 
-### `npm test`
+`useModalContext`: 모달 컨텍스트를 가져오는 커스텀 훅
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `isModalOpen`: 모달의 열림 상태를 알려주는 `boolean` 값
 
-### `npm run build`
+- `isModalClosed`: 모달의 닫힘(한번 열린 후 닫힌) 상태를 알려주는 `boolean` 값
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `openModal`: 모달을 여는 함수
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `closeModal`: 모달을 닫는 함수
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 사용 방법
 
-### `npm run eject`
+### Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+라이브러리를 사용하기 위해서 다음과 같이 `ModalProvider`로 앱을 감싸주세요:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```tsx
+import { ModalProvider } from '@ashleysyheo/react-test-modal';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+const App = () => {
+  return (
+    <ModalProvider>
+      <div className="App">{/* ... Rest of your app */}</div>
+    </ModalProvider>
+  );
+};
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Modal 사용 방법
 
-## Learn More
+```js
+import { Modal } from '@ashleysyheo/react-test-modal';
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<Modal>{/* ReactNode 형태의 children을 전달 */}</Modal>;
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Props
+
+#### children
+
+- 모달 내부에 들어갈 내용입니다.
+- React Node 형태로 전달합니다.
+
+## Modal 사용 예시
+
+```tsx
+import { useEffect, useState } from 'react';
+import { Modal, useModalContext } from '@ashleysyheo/react-test-modal';
+
+const MyComponent = () => {
+  const { isModalOpen, isModalClosed, openModal, closeModal } = useModalContext();
+  const [value, setValue] = useState('클릭해서 모달을 열어 보세요!');
+
+  useEffect(() => {
+    if (isModalClosed) setValue('모달이 좀 전에 닫혔어요');
+
+    if (isModalOpen) setValue('모달이 열려있어요');
+  }, [isModalOpen, isModalClosed]);
+
+  return (
+    <div className="App">
+      <h3>{value}</h3>
+      <button onClick={openModal}>Open Modal</button>
+      {isModalOpen && (
+        <Modal>
+          <h3>용비어천가</h3>
+          <div>
+            해동의 여섯 용이 날으사, 일마다 천복이시니,
+            옛 성인들과 부절을 합친 듯 꼭 맞으시니.
+            뿌리 깊은 나무는 바람에 아니 흔들리므로, 꽃 좋고 열매 많으니
+            샘이 깊은 물은 가뭄에 아니 그치므로, 내가 되어 바다에 가나니.
+          </div>
+          <button onClick={closeModal}>Close</button>
+        </Modal>
+      )}
+    </div>
+  );
+}
+</MyModal>
+```
