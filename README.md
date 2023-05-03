@@ -53,7 +53,7 @@ import { Modal } from '@ashleysyheo/react-test-modal';
 
 ## Props
 
-#### children
+### children
 
 - 모달 내부에 들어갈 내용입니다.
 - React Node 형태로 전달합니다.
@@ -95,3 +95,7 @@ const MyComponent = () => {
 }
 </MyModal>
 ```
+
+<br>
+
+[![Edit @ashleysyheo/react-modal](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/ashleysyheo-react-modal-dzdd3k)
