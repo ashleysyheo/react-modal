@@ -28,7 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish:npm": "rm -rf dist && mkdir dist && tsc && babel src/lib -d dist --copy-files && cp ./src/lib/style.module.css ./dist"
+    "publish:npm": "rm -rf dist && mkdir dist && tsc && cp ./src/lib/style.module.css ./dist"
   },
   "dependencies": {
     "react": "^18.2.0",
