@@ -1,6 +1,6 @@
 {
   "name": "@ashleysyheo/react-modal",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": false,
   "description": "Responsive modal dialog component for React",
   "module": "dist/index.js",
